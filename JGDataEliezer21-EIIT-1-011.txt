@@ -1,0 +1,290 @@
+
+/* Nombre: Eliezer Jorge Guzmán Matricula: 21-EIIT-1-011 Sección: 0541 */
+
+USE [master]
+GO
+/****** Object:  Database [AutoRepuestosCJ]    Script Date: 12/8/2022 11:55:57 a. m. ******/
+CREATE DATABASE [AutoRepuestosCJ]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'AutoRepuestosCJ', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\DATA\AutoRepuestosCJ.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'AutoRepuestosCJ_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\DATA\AutoRepuestosCJ_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [AutoRepuestosCJ].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET  MULTI_USER 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET QUERY_STORE = OFF
+GO
+USE [AutoRepuestosCJ]
+GO
+/****** Object:  Table [dbo].[Clientes]    Script Date: 12/8/2022 11:56:00 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Clientes](
+	[ClienteId] [int] NOT NULL,
+	[Nombre] [varchar](50) NULL,
+	[Telefono] [varchar](13) NULL,
+ CONSTRAINT [PK_Clientes] PRIMARY KEY CLUSTERED 
+(
+	[ClienteId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Empleados]    Script Date: 12/8/2022 11:56:00 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Empleados](
+	[EmpleadoId] [int] NOT NULL,
+	[Nombre] [varchar](60) NULL,
+	[Cedula] [varchar](15) NULL,
+	[Sexo] [char](1) NULL,
+	[Telefono] [varchar](13) NULL,
+	[Email] [varchar](50) NULL,
+	[Cargo] [varchar](50) NULL,
+	[Sueldo] [float] NULL,
+ CONSTRAINT [PK_Empleados] PRIMARY KEY CLUSTERED 
+(
+	[EmpleadoId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Piezas]    Script Date: 12/8/2022 11:56:00 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Piezas](
+	[PiezaId] [int] NOT NULL,
+	[Descripcion] [varchar](60) NULL,
+	[Marca] [varchar](50) NULL,
+	[Codigo] [varchar](30) NULL,
+	[Cantidad] [int] NULL,
+	[ProveedorId] [int] NULL,
+	[PrecioUnitario] [float] NULL,
+ CONSTRAINT [PK_Piezas] PRIMARY KEY CLUSTERED 
+(
+	[PiezaId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Proveedores]    Script Date: 12/8/2022 11:56:00 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Proveedores](
+	[ProveedorId] [int] NOT NULL,
+	[Nombre] [varchar](50) NULL,
+	[Telefono] [varchar](13) NULL,
+	[Email] [varchar](50) NULL,
+ CONSTRAINT [PK_Proveedores] PRIMARY KEY CLUSTERED 
+(
+	[ProveedorId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Ventas]    Script Date: 12/8/2022 11:56:00 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Ventas](
+	[VentaId] [int] NOT NULL,
+	[PiezaId] [int] NULL,
+	[Cantidad] [int] NULL,
+	[ClienteId] [int] NULL,
+	[EmpleadoId] [int] NULL,
+ CONSTRAINT [PK_Ventas] PRIMARY KEY CLUSTERED 
+(
+	[VentaId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+INSERT [dbo].[Clientes] ([ClienteId], [Nombre], [Telefono]) VALUES (1, N'Javier Molina T.', N'829-792-3902')
+INSERT [dbo].[Clientes] ([ClienteId], [Nombre], [Telefono]) VALUES (2, N'Jose Encarnacion L.', N'809-202-2894')
+INSERT [dbo].[Clientes] ([ClienteId], [Nombre], [Telefono]) VALUES (3, N'Pilar Hernandez S.', N'849-380-2789')
+INSERT [dbo].[Clientes] ([ClienteId], [Nombre], [Telefono]) VALUES (4, N'Juana Lozano P.', N'809-782-5810')
+INSERT [dbo].[Clientes] ([ClienteId], [Nombre], [Telefono]) VALUES (5, N'Rosario Perez M.', N'809-256-9873')
+INSERT [dbo].[Clientes] ([ClienteId], [Nombre], [Telefono]) VALUES (6, N'Andrea Garcia H.', N'829-673-0928')
+INSERT [dbo].[Clientes] ([ClienteId], [Nombre], [Telefono]) VALUES (7, N'Mercedes Reyes G.', N'829-781-3826')
+INSERT [dbo].[Clientes] ([ClienteId], [Nombre], [Telefono]) VALUES (8, N'Beatriz Santana D.', N'829-340-2745')
+INSERT [dbo].[Clientes] ([ClienteId], [Nombre], [Telefono]) VALUES (9, N'Julian De la Cruz', N'809-456-6350')
+INSERT [dbo].[Clientes] ([ClienteId], [Nombre], [Telefono]) VALUES (10, N'Alfonso Peña O.', N'849-356-0980')
+INSERT [dbo].[Clientes] ([ClienteId], [Nombre], [Telefono]) VALUES (11, N'Ruben Feliz C.', N'829-673-5231')
+INSERT [dbo].[Clientes] ([ClienteId], [Nombre], [Telefono]) VALUES (12, N'Adrian Mejia M.', N'809-267-8364')
+INSERT [dbo].[Clientes] ([ClienteId], [Nombre], [Telefono]) VALUES (13, N'Mario Lopez V.', N'829-182-9364')
+INSERT [dbo].[Clientes] ([ClienteId], [Nombre], [Telefono]) VALUES (14, N'Pascual Cruz S.', N'809-326-9823')
+INSERT [dbo].[Clientes] ([ClienteId], [Nombre], [Telefono]) VALUES (15, N'Alicia De los Santos ', N'849-738-2971')
+INSERT [dbo].[Clientes] ([ClienteId], [Nombre], [Telefono]) VALUES (16, N'Amparo Lara A.', N'809-452-7824')
+INSERT [dbo].[Clientes] ([ClienteId], [Nombre], [Telefono]) VALUES (17, N'Jorge Arias B.', N'829-863-2781')
+INSERT [dbo].[Clientes] ([ClienteId], [Nombre], [Telefono]) VALUES (18, N'Rocio Abreu L.', N'849-782-9728')
+INSERT [dbo].[Clientes] ([ClienteId], [Nombre], [Telefono]) VALUES (19, N'Rosa Vasquez J.', N'809-346-8364')
+INSERT [dbo].[Clientes] ([ClienteId], [Nombre], [Telefono]) VALUES (20, N'Manuel Mendez P.', N'829-562-4523')
+GO
+INSERT [dbo].[Empleados] ([EmpleadoId], [Nombre], [Cedula], [Sexo], [Telefono], [Email], [Cargo], [Sueldo]) VALUES (1, N'Antonio Sanchez G.', N'001-5648930-5', N'M', N'829-938-1254', N'Antoniosanchez@gmail.com', N'Administrador', 35000)
+INSERT [dbo].[Empleados] ([EmpleadoId], [Nombre], [Cedula], [Sexo], [Telefono], [Email], [Cargo], [Sueldo]) VALUES (2, N'Manuel Lopez R.', N'002-4289272-3', N'M', N'809-287-5630', N'Manuellopez@gmail.com', N'Encargado de almacen', 25000)
+INSERT [dbo].[Empleados] ([EmpleadoId], [Nombre], [Cedula], [Sexo], [Telefono], [Email], [Cargo], [Sueldo]) VALUES (3, N'Angel Perez S.', N'402-5297636-8', N'M', N'849-538-2939', N'Angelperez@hotmail.com', N'Almacenista', 15000)
+INSERT [dbo].[Empleados] ([EmpleadoId], [Nombre], [Cedula], [Sexo], [Telefono], [Email], [Cargo], [Sueldo]) VALUES (4, N'Miguel Angel Romero', N'002-7927298-2', N'M', N'849-356-9038', N'Miguelromero@gmail.com', N'Almacenista', 15000)
+INSERT [dbo].[Empleados] ([EmpleadoId], [Nombre], [Cedula], [Sexo], [Telefono], [Email], [Cargo], [Sueldo]) VALUES (5, N'Ana Gomez P.', N'402-1863839-7', N'F', N'809-750-1867', N'Anagomez@hotmail.com', N'Cajera', 14000)
+INSERT [dbo].[Empleados] ([EmpleadoId], [Nombre], [Cedula], [Sexo], [Telefono], [Email], [Cargo], [Sueldo]) VALUES (6, N'Lucia Diaz T.', N'002-9853737-1', N'F', N'849-682-1892', N'Luciadiaz@gmail.com', N'Cajera', 14000)
+INSERT [dbo].[Empleados] ([EmpleadoId], [Nombre], [Cedula], [Sexo], [Telefono], [Email], [Cargo], [Sueldo]) VALUES (7, N'Daniel Castillo B.', N'402-6872928-2', N'M', N'829-469-1903', N'Danielcastillo@hotmail.com', N'Vendedor', 16000)
+INSERT [dbo].[Empleados] ([EmpleadoId], [Nombre], [Cedula], [Sexo], [Telefono], [Email], [Cargo], [Sueldo]) VALUES (8, N'Juan Antonio Torres', N'002-5627282-4', N'M', N'809-182-6292', N'Juantorres@gmail.com', N'Vendedor', 16000)
+INSERT [dbo].[Empleados] ([EmpleadoId], [Nombre], [Cedula], [Sexo], [Telefono], [Email], [Cargo], [Sueldo]) VALUES (9, N'Alejandro Castillo P.', N'402-8388392-7', N'M', N'809-378-7923', N'Alejandrocastillo@gmail.com', N'Vendedor', 16000)
+INSERT [dbo].[Empleados] ([EmpleadoId], [Nombre], [Cedula], [Sexo], [Telefono], [Email], [Cargo], [Sueldo]) VALUES (10, N'Carmen Rosario M.', N'002-5719282-6', N'F', N'849-892-6386', N'Carmenrosario@gmail.com', N'Vendedora', 16000)
+INSERT [dbo].[Empleados] ([EmpleadoId], [Nombre], [Cedula], [Sexo], [Telefono], [Email], [Cargo], [Sueldo]) VALUES (11, N'Ruben Polanco H.', N'002-6738283-3', N'M', N'829-463-7234', N'Rubenpolanco@gmail.com', N'Delivery', 12000)
+GO
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (1, N'Neumatico', N'Michelin', N'225/65R17', 30, 1, 5000)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (2, N'Neumatico', N'Bridgestone', N'225/65R17', 28, 1, 4500)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (3, N'Lubricante', N'Castrol', N'SAE40', 60, 2, 350)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (4, N'Lubricante', N'Quaker', N'SAE50', 60, 2, 385)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (5, N'Bateria ', N'Motorcraft', N'BXT-24', 18, 3, 9500)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (6, N'Bateria', N'LTH', N'BXT-35', 12, 3, 10500)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (7, N'Aros', N'Toyota', N'4RUNNER', 16, 4, 7000)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (8, N'Aros', N'BMW', N'M6', 12, 4, 8500)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (9, N'Gato Hidraulico', N'Goodyear', N'10TON', 10, 5, 2500)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (10, N'Gato Hidraulico', N'HS', N'2TON', 12, 5, 3000)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (11, N'Vidrio Delantero', N'Toyota', N'Camry12-16', 12, 6, 9895)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (12, N'Vidrio Delantero', N'Toyota', N'Prado10-15', 10, 6, 8500)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (13, N'Faroles Traseros', N'Toyota', N'HILUX16-19', 20, 7, 5500)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (14, N'Pantallas', N'Hyundai', N'TUCSON10-12', 18, 7, 8800)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (15, N'Pantallas', N'Toyota', N'4RUNNER10-13', 15, 7, 13800)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (16, N'Bumper Trasero', N'Toyota', N'HILUX16-22', 15, 8, 18500)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (17, N'Bumper Trasero', N'Honda', N'CIVIC13-15', 12, 8, 7000)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (18, N'Bumper Delantero', N'Toyota', N'VITZ14', 14, 8, 20000)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (19, N'Control de Crucero', N'Honda', N'CCH', 17, 9, 3000)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (20, N'Bomba de Agua', N'Chevrolet', N'COL17-20', 8, 9, 15000)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (21, N'Compresor', N'Toyota', N'4RUNNER10-22', 9, 10, 40000)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (22, N'Evaporador', N'Honda', N'ACCORD10-15', 8, 10, 22000)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (23, N'Amortiguador Delantero', N'Toyota', N'4RUNNERS', 19, 11, 12500)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (24, N'Bushing', N'BMW', N'SER7', 20, 11, 3500)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (25, N'Filtro de Aceite', N'Motorcraft', N'FL-500S', 50, 12, 500)
+INSERT [dbo].[Piezas] ([PiezaId], [Descripcion], [Marca], [Codigo], [Cantidad], [ProveedorId], [PrecioUnitario]) VALUES (26, N'Filtro de Aceite', N'Motorcraft', N'FL-820S', 50, 12, 450)
+GO
+INSERT [dbo].[Proveedores] ([ProveedorId], [Nombre], [Telefono], [Email]) VALUES (1, N'Roberto Martinez J.', N'829-653-7634', N'Robertomartinez@gmail.com')
+INSERT [dbo].[Proveedores] ([ProveedorId], [Nombre], [Telefono], [Email]) VALUES (2, N'Manuel Marte H.', N'809-784-2345', N'Martemanuel@hotmail.com')
+INSERT [dbo].[Proveedores] ([ProveedorId], [Nombre], [Telefono], [Email]) VALUES (3, N'Julia Rodriguez M.', N'829-256-2876', N'Juliarodri@gmail.com')
+INSERT [dbo].[Proveedores] ([ProveedorId], [Nombre], [Telefono], [Email]) VALUES (4, N'Junior Colon R.', N'849-721-2967', N'Juniorcolon@gmail.com')
+INSERT [dbo].[Proveedores] ([ProveedorId], [Nombre], [Telefono], [Email]) VALUES (5, N'Maria Gomez P.', N'809-437-1298', N'Gomezmaria@hotmail.com')
+INSERT [dbo].[Proveedores] ([ProveedorId], [Nombre], [Telefono], [Email]) VALUES (6, N'Mario Vidal R.', N'849-564-3021', N'Marior@hotmail.com')
+INSERT [dbo].[Proveedores] ([ProveedorId], [Nombre], [Telefono], [Email]) VALUES (7, N'Jose Ramirez J.', N'829-897-3254', N'Joseramirez@gmail.com')
+INSERT [dbo].[Proveedores] ([ProveedorId], [Nombre], [Telefono], [Email]) VALUES (8, N'Abraham Batista C.', N'809-256-8765', N'Abrahambatista@gmail.com')
+INSERT [dbo].[Proveedores] ([ProveedorId], [Nombre], [Telefono], [Email]) VALUES (9, N'Juan Pineda V.', N'809-576-2189', N'Juanpineda@hotmail.com')
+INSERT [dbo].[Proveedores] ([ProveedorId], [Nombre], [Telefono], [Email]) VALUES (10, N'Ramiro Sanchez C.', N'829-487-3296', N'Ramirosan@gmail.com')
+INSERT [dbo].[Proveedores] ([ProveedorId], [Nombre], [Telefono], [Email]) VALUES (11, N'Tito Guzman M.', N'849-987-5468', N'Titoguzman@gmail.com')
+INSERT [dbo].[Proveedores] ([ProveedorId], [Nombre], [Telefono], [Email]) VALUES (12, N'Miguel Corporan M.', N'849-123-8732', N'Miguelcorporan@gmail.com')
+GO
+INSERT [dbo].[Ventas] ([VentaId], [PiezaId], [Cantidad], [ClienteId], [EmpleadoId]) VALUES (1, 4, 5, 1, 7)
+INSERT [dbo].[Ventas] ([VentaId], [PiezaId], [Cantidad], [ClienteId], [EmpleadoId]) VALUES (2, 1, 4, 2, 7)
+INSERT [dbo].[Ventas] ([VentaId], [PiezaId], [Cantidad], [ClienteId], [EmpleadoId]) VALUES (3, 7, 4, 3, 8)
+INSERT [dbo].[Ventas] ([VentaId], [PiezaId], [Cantidad], [ClienteId], [EmpleadoId]) VALUES (4, 14, 2, 4, 10)
+INSERT [dbo].[Ventas] ([VentaId], [PiezaId], [Cantidad], [ClienteId], [EmpleadoId]) VALUES (5, 16, 1, 5, 9)
+INSERT [dbo].[Ventas] ([VentaId], [PiezaId], [Cantidad], [ClienteId], [EmpleadoId]) VALUES (6, 25, 1, 6, 8)
+INSERT [dbo].[Ventas] ([VentaId], [PiezaId], [Cantidad], [ClienteId], [EmpleadoId]) VALUES (7, 11, 1, 7, 10)
+INSERT [dbo].[Ventas] ([VentaId], [PiezaId], [Cantidad], [ClienteId], [EmpleadoId]) VALUES (8, 17, 1, 8, 9)
+INSERT [dbo].[Ventas] ([VentaId], [PiezaId], [Cantidad], [ClienteId], [EmpleadoId]) VALUES (9, 6, 1, 9, 7)
+INSERT [dbo].[Ventas] ([VentaId], [PiezaId], [Cantidad], [ClienteId], [EmpleadoId]) VALUES (10, 1, 5, 10, 8)
+INSERT [dbo].[Ventas] ([VentaId], [PiezaId], [Cantidad], [ClienteId], [EmpleadoId]) VALUES (11, 2, 4, 11, 9)
+INSERT [dbo].[Ventas] ([VentaId], [PiezaId], [Cantidad], [ClienteId], [EmpleadoId]) VALUES (12, 8, 4, 12, 9)
+INSERT [dbo].[Ventas] ([VentaId], [PiezaId], [Cantidad], [ClienteId], [EmpleadoId]) VALUES (13, 4, 10, 13, 10)
+INSERT [dbo].[Ventas] ([VentaId], [PiezaId], [Cantidad], [ClienteId], [EmpleadoId]) VALUES (14, 19, 1, 14, 7)
+INSERT [dbo].[Ventas] ([VentaId], [PiezaId], [Cantidad], [ClienteId], [EmpleadoId]) VALUES (15, 21, 1, 15, 10)
+INSERT [dbo].[Ventas] ([VentaId], [PiezaId], [Cantidad], [ClienteId], [EmpleadoId]) VALUES (16, 23, 4, 16, 10)
+INSERT [dbo].[Ventas] ([VentaId], [PiezaId], [Cantidad], [ClienteId], [EmpleadoId]) VALUES (17, 15, 2, 17, 8)
+INSERT [dbo].[Ventas] ([VentaId], [PiezaId], [Cantidad], [ClienteId], [EmpleadoId]) VALUES (18, 13, 2, 18, 10)
+INSERT [dbo].[Ventas] ([VentaId], [PiezaId], [Cantidad], [ClienteId], [EmpleadoId]) VALUES (19, 12, 1, 19, 9)
+INSERT [dbo].[Ventas] ([VentaId], [PiezaId], [Cantidad], [ClienteId], [EmpleadoId]) VALUES (20, 21, 1, 20, 7)
+GO
+ALTER TABLE [dbo].[Piezas]  WITH CHECK ADD  CONSTRAINT [FK_Piezas_Proveedores] FOREIGN KEY([ProveedorId])
+REFERENCES [dbo].[Proveedores] ([ProveedorId])
+GO
+ALTER TABLE [dbo].[Piezas] CHECK CONSTRAINT [FK_Piezas_Proveedores]
+GO
+ALTER TABLE [dbo].[Ventas]  WITH CHECK ADD  CONSTRAINT [FK_Ventas_Clientes] FOREIGN KEY([ClienteId])
+REFERENCES [dbo].[Clientes] ([ClienteId])
+GO
+ALTER TABLE [dbo].[Ventas] CHECK CONSTRAINT [FK_Ventas_Clientes]
+GO
+ALTER TABLE [dbo].[Ventas]  WITH CHECK ADD  CONSTRAINT [FK_Ventas_Empleados] FOREIGN KEY([EmpleadoId])
+REFERENCES [dbo].[Empleados] ([EmpleadoId])
+GO
+ALTER TABLE [dbo].[Ventas] CHECK CONSTRAINT [FK_Ventas_Empleados]
+GO
+ALTER TABLE [dbo].[Ventas]  WITH CHECK ADD  CONSTRAINT [FK_Ventas_Piezas] FOREIGN KEY([PiezaId])
+REFERENCES [dbo].[Piezas] ([PiezaId])
+GO
+ALTER TABLE [dbo].[Ventas] CHECK CONSTRAINT [FK_Ventas_Piezas]
+GO
+USE [master]
+GO
+ALTER DATABASE [AutoRepuestosCJ] SET  READ_WRITE 
+GO
